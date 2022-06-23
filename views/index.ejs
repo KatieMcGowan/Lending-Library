@@ -4,16 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/public/styles.css" type="text/css" rel="stylesheet">
   <title>Home</title>
 </head>
 <body>
   <header>
-    <div class="header">
-    </div>
+    <div class="header"></div>
   </header>
   <main>
     <h1>Take a book, leave a book at one of the following Alameda lending library locations:</h1>
-    <div class="library"></div>
+    <% for (let i = 0; i < libraries.length; i++) { %>
+      <div class="library">
+        <a href="/libraries/<%=libraries[i]._id%>"><%=libraries[i].name%></a>
+      </div>
+    <% } %>  
     <a href="/library/new">Click here to add a new library</p>
   </main>
 </body>

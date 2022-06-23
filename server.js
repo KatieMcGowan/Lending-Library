@@ -4,21 +4,27 @@ const PORT = 4000;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
+const Library = require("./models/library");
 
 //MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride("_method"));
+app.use("/public", express.static("public"));
 
 //CONTROLLERS
 const librariesController = require("./controllers/libraries");
-app.use("/libraries", librariesController);
+app.use("/", librariesController);
 
 const booksController = require("./controllers/books");
-app.use("/books", booksController);
+app.use("/library/book", booksController);
 
-//INDEX ROUTE
+//INDEX GET ROUTE
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  Library.find({}, (err, foundLibraries) => {
+    res.render("index.ejs", {
+      libraries: foundLibraries
+    });
+  });
 });
 
 //MONGOOSE

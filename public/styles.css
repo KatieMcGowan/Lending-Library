@@ -1,0 +1,31 @@
+.header {
+  width: auto;
+  height: 50px;
+  background-color: aqua;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.library {
+  background: rgb(0, 26, 255);
+  display: inline-block;
+  height: 55px;
+  margin-left: 20px;
+  margin-top: 55px;
+  position: relative;
+  width: 100px;
+}
+
+.library:before {
+  border-bottom: 35px solid rgb(0, 26, 255);
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  /* content: ""; */
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: -35px;
+  width: 0;
+}
