@@ -7,4 +7,11 @@ router.get("/library/new", (req, res) => {
   res.render("libraries/new.ejs");
 });
 
+//NEW POST ROUTE
+router.post("/", (req, res) => {
+  Library.create(req.body, (err, createdLibrary) => {
+    res.redirect("/")
+  });
+});
+
 module.exports = router;
