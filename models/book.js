@@ -11,10 +11,6 @@ const bookSchema = mongoose.Schema({
   genre: {
     type: String,
   },
-  library: {
-    type: String,
-    //does this need to ref library object? 
-  },
 })
 
 const Book = mongoose.model("Book", bookSchema);
