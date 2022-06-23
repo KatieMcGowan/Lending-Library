@@ -14,8 +14,17 @@ router.post("/", (req, res) => {
   });
 });
 
+//EDIT GET ROUTE
+router.get("/library/:id/edit", (req, res) => {
+  Library.findById(req.params.id, (err, foundLibrary) => {
+    res.render("libraries/edit.ejs", {
+      library: foundLibrary
+    });
+  });
+});
+
 //SHOW GET ROUTE (KEEP TOWARDS BOTTOM)
-router.get("/libraries/:id", (req, res) => {
+router.get("/library/:id", (req, res) => {
   Library.findById(req.params.id)
   .populate({path: "books"})
   .exec((err,foundLibrary) => {
