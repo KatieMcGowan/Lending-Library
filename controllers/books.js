@@ -3,20 +3,25 @@ const router = express.Router();
 const Book = require("../models/book");
 const Library = require("../models/library");
 
-router.get("/", (req, res) => {
-  Library.find({}, (err, foundLibrary) => {
+// ROUTE /library/
+
+router.get("/:id/book/new", (req, res) => {
+  Library.findById(req.params.id, (err, foundLibrary) => {
     res.render("books/new.ejs", {
       library: foundLibrary
     });
   });
 });
 
-router.post("/", (req, res) => {
+router.post("/:id/book", (req, res) => {
+  console.log("NEW ROUTE")
   Book.create(req.body, (err, createdBook) => {
     if (err) {
       res.send(err);
     } else {
-      Library.findById(req.body.libraryId, (error, foundLibrary) => {
+      console.log("HIT LIBRARY FIND BY ID ROUTE")
+      Library.findById(req.params.id, (error, foundLibrary) => {
+        console.log(foundLibrary);
         foundLibrary.books.push(createdBook);
         foundLibrary.save((err, savedLibrary) => {
           res.redirect("/library/:id")

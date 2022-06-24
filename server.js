@@ -13,10 +13,10 @@ app.use("/public", express.static("public"));
 
 //CONTROLLERS
 const librariesController = require("./controllers/libraries");
-app.use("/", librariesController);
+app.use("/library", librariesController);
 
 const booksController = require("./controllers/books");
-app.use("/library/:id/book", booksController);
+app.use("/library/:/book", booksController);
 
 //INDEX GET ROUTE
 app.get("/", (req, res) => {

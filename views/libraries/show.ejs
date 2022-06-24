@@ -20,13 +20,11 @@
         <%=library.books[i].title%>
         by <%=library.books[i].author%>
         Genre: <%=library.books[i].genre%>
-        <form action="/library/<%=book._id%>?_method=DELETE" method="POST">
-          <input type="submit" value="Checkout">
         </form>
       </div>
     <% } %> 
     <br/>
-    <a href="/library/<%=library._id%>/book">Click here to add a new book to the <%=library.name%> library.</a> 
+    <a href="/library/<%=library._id%>/book/new">Click here to add a new book to the <%=library.name%> library.</a> 
   </main>
 </body>
 </html>

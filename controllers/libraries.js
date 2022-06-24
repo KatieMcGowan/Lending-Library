@@ -3,19 +3,20 @@ const router = express.Router();
 const Library = require("../models/library");
 
 //NEW GET ROUTE
-router.get("/library/new", (req, res) => {
+router.get("/new", (req, res) => {
   res.render("libraries/new.ejs");
 });
 
 //NEW POST ROUTE
 router.post("/", (req, res) => {
   Library.create(req.body, (err, createdLibrary) => {
-    res.redirect("/")
+    console.log(createdLibrary)
+    res.redirect("/library/" + createdLibrary._id)
   });
 });
 
 //EDIT GET ROUTE
-router.get("/library/:id/edit", (req, res) => {
+router.get("/:id/edit", (req, res) => {
   Library.findById(req.params.id, (err, foundLibrary) => {
     res.render("libraries/edit.ejs", {
       library: foundLibrary
@@ -23,29 +24,16 @@ router.get("/library/:id/edit", (req, res) => {
   });
 });
 
-router.put("/library/:id", (req, res) => {
+//EDIT PUT ROUTE
+router.put("/:id", (req, res) => {
+  console.log("AHAHHHAHA")
   Library.findByIdAndUpdate(req.params.id, req.body, () => {
-    res.redirect("/");
+    res.redirect("/library/" + req.params.id);
   })
 })
 
-//SHOW GET ROUTE (KEEP TOWARDS BOTTOM)
-router.get("/library/:id", (req, res) => {
-  Library.findById(req.params.id)
-  .populate({path: "books"})
-  .exec((err,foundLibrary) => {
-    if(err) {
-      console.log(err)
-    } else {
-      res.render("libraries/show.ejs", {
-        library: foundLibrary
-      });
-    }
-  })
-});
-
 //DELETE ROUTE
-router.delete("/library/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
   Library.findByIdAndRemove(req.params.id, (err, deletedLibrary) => {
     if (err) {
       console.log(err);
@@ -60,6 +48,21 @@ router.delete("/library/:id", (req, res) => {
       });
     };
   });
+});
+
+//SHOW GET ROUTE (KEEP TOWARDS BOTTOM)
+router.get("/:id", (req, res) => {
+  Library.findById(req.params.id)
+  .populate({path: "books"})
+  .exec((err,foundLibrary) => {
+    if(err) {
+      console.log(err)
+    } else {
+      res.render("libraries/show.ejs", {
+        library: foundLibrary
+      });
+    }
+  })
 });
 
 module.exports = router;
