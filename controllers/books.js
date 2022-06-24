@@ -3,17 +3,18 @@ const router = express.Router();
 const Book = require("../models/book");
 const Library = require("../models/library");
 
-// ROUTE /library/
-
+//NEW GET ROUTE
 router.get("/new", (req, res) => {
-  console.log("Hit new route");
-  Library.findById(req.params.id, (err, foundLibrary) => {
+  console.log(req.params.id);
+  Library.find({}, (err, foundLibraries) => {
+    console.log(foundLibraries)
     res.render("books/new.ejs", {
-      library: foundLibrary
+      library: foundLibraries
     });
   });
 });
 
+//NEW POST ROUTE
 router.post("/", (req, res) => {
   console.log("NEW ROUTE")
   Book.create(req.body, (err, createdBook) => {

@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Library = require("../models/library");
+const Book = require("../models/book");
+
+//LIBRARY ROUTE
 
 //NEW GET ROUTE
 router.get("/new", (req, res) => {
@@ -26,13 +29,12 @@ router.get("/:id/edit", (req, res) => {
 
 //EDIT PUT ROUTE
 router.put("/:id", (req, res) => {
-  console.log("AHAHHHAHA")
   Library.findByIdAndUpdate(req.params.id, req.body, () => {
     res.redirect("/library/" + req.params.id);
   })
 })
 
-//DELETE ROUTE (DOESN'T WORK YET)
+//DELETE ROUTE
 router.delete("/:id", (req, res) => {
   Library.findByIdAndRemove(req.params.id, (err, deletedLibrary) => {
     if (err) {
@@ -68,6 +70,37 @@ router.get("/:id", (req, res) => {
       });
     }
   })
+});
+
+//BOOK ROUTES
+
+//NEW GET ROUTE
+router.get("/:id/book/new", (req, res) => {
+  Library.findById(req.params.id, (err, foundLibrary) => {
+    console.log(foundLibrary)
+    res.render("books/new.ejs", {
+      library: foundLibrary
+    });
+  });
+});
+
+//NEW POST ROUTE
+router.post("/:id/book", (req, res) => {
+  console.log("NEW ROUTE")
+  Book.create(req.body, (err, createdBook) => {
+    if (err) {
+      res.send(err);
+    } else {
+      console.log("HIT LIBRARY FIND BY ID ROUTE")
+      Library.findById(req.params.id, (error, foundLibrary) => {
+        console.log(foundLibrary);
+        foundLibrary.books.push(createdBook);
+        foundLibrary.save((err, savedLibrary) => {
+          res.redirect("/library/" + req.params.id)
+        });
+      });
+    };
+  });
 });
 
 module.exports = router;

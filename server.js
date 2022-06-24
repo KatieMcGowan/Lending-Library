@@ -15,8 +15,8 @@ app.use("/public", express.static("public"));
 const librariesController = require("./controllers/libraries");
 app.use("/library", librariesController);
 
-const booksController = require("./controllers/books");
-app.use("/library/:/book", booksController);
+// const booksController = require("./controllers/books");
+// app.use("/library/:id/book", booksController);
 
 //INDEX GET ROUTE
 app.get("/", (req, res) => {
