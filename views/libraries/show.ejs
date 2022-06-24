@@ -12,7 +12,7 @@
     <div class="header"></div>
   </header>
   <main>
-    <h1><%=library.name%></h1>
+    <h1><%=library.name%> Library</h1>
     <h2><%=library.address%></h2>
     <a href="/library/<%=library._id%>/edit">Edit Library</a>
     <% for (let i = 0; i < library.books.length; i++) { %>
@@ -26,7 +26,7 @@
       </div>
     <% } %> 
     <br/>
-    <a href="/library/:id/new">Click here to add a new book to the <%=library.name%> library.</a> 
+    <a href="/library/<%=library._id%>/book">Click here to add a new book to the <%=library.name%> library.</a> 
   </main>
 </body>
 </html>

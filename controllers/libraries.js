@@ -23,6 +23,12 @@ router.get("/library/:id/edit", (req, res) => {
   });
 });
 
+router.put("/library/:id", (req, res) => {
+  Library.findByIdAndUpdate(req.params.id, req.body, () => {
+    res.redirect("/");
+  })
+})
+
 //SHOW GET ROUTE (KEEP TOWARDS BOTTOM)
 router.get("/library/:id", (req, res) => {
   Library.findById(req.params.id)
@@ -38,5 +44,22 @@ router.get("/library/:id", (req, res) => {
   })
 });
 
+//DELETE ROUTE
+router.delete("/library/:id", (req, res) => {
+  Library.findByIdAndRemove(req.params.id, (err, deletedLibrary) => {
+    if (err) {
+      console.log(err);
+    } else {
+      books.remove({
+        _id: {
+          $in: deletedLibrary.books
+        }
+      }, (err, data) => {
+        console.log(data)
+        res.redirect("/")
+      });
+    };
+  });
+});
 
 module.exports = router;

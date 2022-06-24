@@ -16,7 +16,7 @@ const librariesController = require("./controllers/libraries");
 app.use("/", librariesController);
 
 const booksController = require("./controllers/books");
-app.use("/library/book", booksController);
+app.use("/library/:id/book", booksController);
 
 //INDEX GET ROUTE
 app.get("/", (req, res) => {
