@@ -32,25 +32,30 @@ router.put("/:id", (req, res) => {
   })
 })
 
-//DELETE ROUTE
+//DELETE ROUTE (DOESN'T WORK YET)
 router.delete("/:id", (req, res) => {
   Library.findByIdAndRemove(req.params.id, (err, deletedLibrary) => {
     if (err) {
-      console.log(err);
+      console.log(err)
     } else {
-      books.remove({
-        _id: {
-          $in: deletedLibrary.books
-        }
-      }, (err, data) => {
-        console.log(data)
-        res.redirect("/")
-      });
-    };
+      res.redirect("/");
+    }
+      // if (err) {
+    //   console.log(err);
+    // } else {
+    //   books.remove({
+    //     _id: {
+    //       $in: deletedLibrary.books
+    //     }
+    //   }, (err, data) => {
+    //     console.log(data)
+    //     res.redirect("/")
+    //   });
+    // };
   });
 });
 
-//SHOW GET ROUTE (KEEP TOWARDS BOTTOM)
+//SHOW GET ROUTE
 router.get("/:id", (req, res) => {
   Library.findById(req.params.id)
   .populate({path: "books"})

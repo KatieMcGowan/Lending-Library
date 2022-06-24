@@ -5,7 +5,8 @@ const Library = require("../models/library");
 
 // ROUTE /library/
 
-router.get("/:id/book/new", (req, res) => {
+router.get("/new", (req, res) => {
+  console.log("Hit new route");
   Library.findById(req.params.id, (err, foundLibrary) => {
     res.render("books/new.ejs", {
       library: foundLibrary
@@ -13,7 +14,7 @@ router.get("/:id/book/new", (req, res) => {
   });
 });
 
-router.post("/:id/book", (req, res) => {
+router.post("/", (req, res) => {
   console.log("NEW ROUTE")
   Book.create(req.body, (err, createdBook) => {
     if (err) {
