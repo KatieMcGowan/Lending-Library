@@ -98,25 +98,6 @@ router.post("/:id/book", (req, res) => {
   });
 });
 
-//DELETE ROUTE
-// router.delete("/library/:id/book/:id", (req, res) => {
-//   Book.findByIdAndRemove(req.params.id, (err, deletedBook) => {
-    // console.log(req.params.id);
-    // console.log(deletedBook)
-    // Library.findOne({"books": req.params.id}, (err, foundLibrary) => {
-    //   console.log(foundLibrary)
-      // if (err) {
-      //   res.send(err)
-      // } else {
-    //     foundLibrary.books.remove(req.params.id);
-    //     foundLibrary.save((err, updatedLibrary) => {
-    //       res.redirect("/library/:id")
-    //     };
-    //   })
-    // });
-//   })
-// });
-
 router.delete("/:libraryid/book/:bookid", (req, res) => {
   Book.findByIdAndRemove(req.params.bookid, (err, deletedBook) => {
     Library.findOne({"books": req.params.bookid}, (err, foundLibrary) => {
@@ -131,21 +112,5 @@ router.delete("/:libraryid/book/:bookid", (req, res) => {
     });
   });      
 });
-
-// router.delete('/:id', (req, res)=>{
-//   Article.findByIdAndRemove(req.params.id, (err, deletedArticle)=>{
-//     Author.findOne({'articles': req.params.id}, (err, foundAuthor) => {
-//          if(err){
-//             res.send(err);
-//           } else {
-//             foundAuthor.articles.remove(req.params.id);
-//             foundAuthor.save((err, updatedAuthor) => {
-//               console.log(updatedAuthor);
-//               res.redirect('/articles');
-//             })
-//           }
-//     })
-//   });
-// });
 
 module.exports = router;
