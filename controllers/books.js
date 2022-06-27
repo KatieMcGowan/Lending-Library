@@ -33,4 +33,23 @@ router.post("/", (req, res) => {
   });
 });
 
+//DELETE ROUTE
+router.delete("/library/:id/book/:id", (req, res) => {
+  Book.findByIdAndRemove(req.params.id, (err, deletedBook) => {
+    console.log(req.params.id);
+    console.log(deletedBook)
+    Library.findOne({"books": req.params.id}, (err, foundLibrary) => {
+      console.log(foundLibrary)
+      if (err) {
+        res.send(err)
+      } else {
+        foundLibrary.books.remove(req.params.id);
+        foundLibrary.save((err, updatedLibrary) => {
+          res.redirect("/library/:id")
+        });
+      }
+    })
+  })
+});
+ 
 module.exports = router;

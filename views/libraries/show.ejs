@@ -17,9 +17,12 @@
     <a href="/library/<%=library._id%>/edit">Edit Library</a>
     <% for (let i = 0; i < library.books.length; i++) { %>
       <div class="books">
-        <%=library.books[i].title%>
-        by <%=library.books[i].author%>
+        <%=library.books[i].title%><br/>
+        by <%=library.books[i].author%><br>
         Genre: <%=library.books[i].genre%>
+        </form>
+        <form action="/library/<%=library._id%>/book/<%=library.books[i]._id%>?_method=DELETE" method="post">
+          <input type="submit" value="Checkout"/>
         </form>
       </div>
     <% } %> 

@@ -13,7 +13,6 @@ router.get("/new", (req, res) => {
 //NEW POST ROUTE
 router.post("/", (req, res) => {
   Library.create(req.body, (err, createdLibrary) => {
-    console.log(createdLibrary)
     res.redirect("/library/" + createdLibrary._id)
   });
 });
@@ -77,7 +76,6 @@ router.get("/:id", (req, res) => {
 //NEW GET ROUTE
 router.get("/:id/book/new", (req, res) => {
   Library.findById(req.params.id, (err, foundLibrary) => {
-    console.log(foundLibrary)
     res.render("books/new.ejs", {
       library: foundLibrary
     });
@@ -86,14 +84,11 @@ router.get("/:id/book/new", (req, res) => {
 
 //NEW POST ROUTE
 router.post("/:id/book", (req, res) => {
-  console.log("NEW ROUTE")
   Book.create(req.body, (err, createdBook) => {
     if (err) {
       res.send(err);
     } else {
-      console.log("HIT LIBRARY FIND BY ID ROUTE")
       Library.findById(req.params.id, (error, foundLibrary) => {
-        console.log(foundLibrary);
         foundLibrary.books.push(createdBook);
         foundLibrary.save((err, savedLibrary) => {
           res.redirect("/library/" + req.params.id)
@@ -102,5 +97,50 @@ router.post("/:id/book", (req, res) => {
     };
   });
 });
+
+//DELETE ROUTE
+// router.delete("/library/:id/book/:id", (req, res) => {
+//   Book.findByIdAndRemove(req.params.id, (err, deletedBook) => {
+    // console.log(req.params.id);
+    // console.log(deletedBook)
+    // Library.findOne({"books": req.params.id}, (err, foundLibrary) => {
+    //   console.log(foundLibrary)
+      // if (err) {
+      //   res.send(err)
+      // } else {
+    //     foundLibrary.books.remove(req.params.id);
+    //     foundLibrary.save((err, updatedLibrary) => {
+    //       res.redirect("/library/:id")
+    //     };
+    //   })
+    // });
+//   })
+// });
+
+router.delete("/:libraryid/book/:bookid", (req, res) => {
+  Book.findByIdAndRemove(req.params.bookid, (err, deletedBook) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.redirect("/library/" + req.params.libraryid)
+    };
+  })
+});
+
+// router.delete('/:id', (req, res)=>{
+//   Article.findByIdAndRemove(req.params.id, (err, deletedArticle)=>{
+//     Author.findOne({'articles': req.params.id}, (err, foundAuthor) => {
+//          if(err){
+//             res.send(err);
+//           } else {
+//             foundAuthor.articles.remove(req.params.id);
+//             foundAuthor.save((err, updatedAuthor) => {
+//               console.log(updatedAuthor);
+//               res.redirect('/articles');
+//             })
+//           }
+//     })
+//   });
+// });
 
 module.exports = router;
