@@ -119,12 +119,17 @@ router.post("/:id/book", (req, res) => {
 
 router.delete("/:libraryid/book/:bookid", (req, res) => {
   Book.findByIdAndRemove(req.params.bookid, (err, deletedBook) => {
-    if (err) {
-      res.send(err)
-    } else {
-      res.redirect("/library/" + req.params.libraryid)
-    };
-  })
+    Library.findOne({"books": req.params.bookid}, (err, foundLibrary) => {
+      if (err) {
+        res.send(err)
+      } else {
+        foundLibrary.books.remove(req.params.bookid);
+        foundLibrary.save((err, updatedLibrary) => {
+          res.redirect("/library/" + req.params.libraryid)
+        });
+      };
+    });
+  });      
 });
 
 // router.delete('/:id', (req, res)=>{
