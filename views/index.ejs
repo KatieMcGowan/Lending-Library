@@ -18,13 +18,15 @@
   </header>
   <main>
     <h1>Take a book, leave a book at one of the following Alameda lending library locations:</h1>
-    <% for (let i = 0; i < libraries.length; i++) { %>
-      <div class="library">
-        <a href="/library/<%=libraries[i]._id%>"><%=libraries[i].name%></a>
-      </div>
-    <% } %>  
+    <div class="libraries">
+      <% for (let i = 0; i < libraries.length; i++) { %>
+        <div class="library">
+          <a href="/library/<%=libraries[i]._id%>" class="name"><%=libraries[i].name%></a>
+        </div>
+      <% } %>  
+    </div>
     <br/>
-    <a href="/library/new">Click here to add a new library.</a>
+    <a href="/library/new">+Add a new library</a>
   </main>
 </body>
 </html>

@@ -24,22 +24,20 @@
     <h2><%=library.address%></h2>
     <a href="/library/<%=library._id%>/edit">Edit Library</a>
     <br/>
-    <% for (let i = 0; i < library.books.length; i++) { %>
-      <div class="books">
-        <div class="bookinfo">
-          <%=library.books[i].title%><br/>
-          by <%=library.books[i].author%><br>
-          Genre: <%=library.books[i].genre%>
-        </div>  
-        <div class="checkout">
+    <div class="bookscontainer">
+      <% for (let i = 0; i < library.books.length; i++) { %>
+        <div class="books">
+          <p><%=library.books[i].title%></p>
+          <p>by <%=library.books[i].author%></p>
+          <p>Genre: <%=library.books[i].genre%></p>
           <form action="/library/<%=library._id%>/book/<%=library.books[i]._id%>?_method=DELETE" method="post">
-            <input type="submit" value="Checkout"/>
+            <input type="submit" value="Checkout" class="button"/>
           </form>
-        </div>  
-      </div>
-    <% } %> 
+        </div>
+      <% } %> 
+    </div>
     <br/>
-    <a href="/library/<%=library._id%>/book/new">Click here to add a new book to the <%=library.name%> library.</a> 
+    <a href="/library/<%=library._id%>/book/new">+Add a new book to the <%=library.name%> library</a> 
     <br/>
     <a href="/">Home</a>
   </main>
