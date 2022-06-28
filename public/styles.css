@@ -44,6 +44,9 @@ a:hover {
 
 .libraries {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .library {
@@ -51,6 +54,7 @@ a:hover {
   display: inline-block;
   height: 55px;
   margin-left: 20px;
+  margin-right: 10px;
   margin-top: 55px;
   position: relative;
   width: 100px;
@@ -71,6 +75,11 @@ a:hover {
   width: 0;
 }
 
+.newlibrary {
+  padding: 10px;
+  margin: 10px;
+  justify-content: center;
+}
 .name {
   color: white;
   font-size: 18px;
@@ -119,13 +128,14 @@ a:hover {
 
 input {
   font-family: 'IM Fell DW Pica', serif;
-  color: rgb(0, 82, 158) 
+  color: rgb(0, 82, 158); 
+  margin: 10px 0;
 }
 
-/* option {
-  font-family: 'IM Fell DW Pica', serif;
-  color: rgb(0, 82, 158) 
-} */
+.submitbutton {
+  display: flex;
+  justify-content: center;
+}
 
 select {
   font-family: 'IM Fell DW Pica', serif;
