@@ -19,9 +19,9 @@
   <main>
     <h1>Edit the <%=library.name%> Library</h1>
     <form action="/library/<%=library._id%>?_method=PUT" method="POST">
-      <label for="name">Name:</label>
+      <label for="name">Name:</label><br/>
       <input type="text" name="name" placeholder="<%=library.name%>"/><br/>
-      <label for="address">Street Address:</label>
+      <label for="address">Street Address:</label><br/>
       <input type="text" name="address" placeholder="<%=library.address%>"/><br/> 
       <div class="submitbutton">
         <input type="submit" value="Update Library" class="button"/>
